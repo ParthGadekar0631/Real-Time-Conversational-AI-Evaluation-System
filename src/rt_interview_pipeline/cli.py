@@ -75,6 +75,9 @@ def main() -> int:
         print("Errors:")
         for error in result.errors:
             print(f"- {error.stage}: {error.user_message}")
+            provider_errors = getattr(error, "details", {}).get("provider_errors", [])
+            for provider_error in provider_errors:
+                print(f"  - {provider_error}")
         print()
 
     print(f"Latency: {result.latency_breakdown_ms}")

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass
+from string import printable
 from typing import Protocol
 
 from .errors import PipelineError
@@ -34,7 +35,7 @@ class MockSTTProvider:
         started = time.perf_counter()
         raw = b" ".join(chunk.data for chunk in chunks)
         text = raw.decode("utf-8", errors="ignore").strip()
-        if not text:
+        if not text or text.startswith("RIFF") or self._non_printable_ratio(text) > 0.15:
             text = "Explain how you would design a real-time interview assistant."
 
         confidence = max(0.0, min(0.99, 0.78 + self.confidence_bias))
@@ -47,6 +48,12 @@ class MockSTTProvider:
             cost_usd=self.cost_per_minute_usd,
             metadata={"mock": True},
         )
+
+    def _non_printable_ratio(self, text: str) -> float:
+        if not text:
+            return 1.0
+        allowed = set(printable)
+        return sum(1 for character in text if character not in allowed) / len(text)
 
 
 class STTRouter:
