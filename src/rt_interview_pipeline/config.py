@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-def load_dotenv(path: str | Path = ".env") -> None:
+def load_dotenv(path: str | Path = ".env", *, override: bool = True) -> None:
     env_path = Path(path)
     if not env_path.exists():
         return
@@ -17,7 +17,8 @@ def load_dotenv(path: str | Path = ".env") -> None:
         key, value = line.split("=", 1)
         key = key.strip()
         value = value.strip().strip('"').strip("'")
-        os.environ.setdefault(key, value)
+        if override or key not in os.environ:
+            os.environ[key] = value
 
 
 @dataclass(frozen=True)

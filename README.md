@@ -52,7 +52,7 @@ Minimum `.env` values for OpenAI plus PostgreSQL:
 OPENAI_API_KEY=your_new_rotated_key_here
 OPENAI_STT_MODEL=gpt-4o-transcribe
 OPENAI_LLM_MODEL=gpt-4.1-mini
-DATABASE_URL=postgresql://interview_user:interview_password@localhost:5432/interview_pipeline
+DATABASE_URL=postgresql://interview_user:interview_password@localhost:55432/interview_pipeline
 MIC_RECORD_SECONDS=8
 ```
 
