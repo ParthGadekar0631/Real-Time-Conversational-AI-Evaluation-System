@@ -1,0 +1,3 @@
+[console_scripts]
+interview-pipeline = rt_interview_pipeline.cli:main
+interview-pipeline-gui = rt_interview_pipeline.gui:main

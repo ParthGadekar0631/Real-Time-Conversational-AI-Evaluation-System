@@ -1,0 +1,23 @@
+[project]
+name = "real-time-conversational-ai-evaluation-system"
+version = "0.1.0"
+description = "Adaptive real-time AI interview response pipeline with routing, fallback, and logging."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=1.0.0",
+    "numpy>=1.26.0",
+    "sounddevice>=0.4.6",
+    "psycopg[binary]>=3.1.0",
+]
+
+[project.scripts]
+interview-pipeline = "rt_interview_pipeline.cli:main"
+interview-pipeline-gui = "rt_interview_pipeline.gui:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
